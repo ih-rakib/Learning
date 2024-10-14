@@ -25,3 +25,43 @@
 ```sql
 CREATE DATABASE School;
 ```
+
+### Creating a Books Table
+
+| BookID | Title                    | Author                | PublishedYear |
+|--------|--------------------------|-----------------------|----------------|
+| INTEGER (Primary Key) | TEXT (Not Null) | TEXT (Not Null) | INTEGER |
+
+**Command to Create this Table:**
+
+```sql
+CREATE TABLE Books (
+    BookID INTEGER PRIMARY KEY,
+    Title TEXT NOT NULL,
+    Author TEXT NOT NULL,
+    PublishedYear INTEGER
+);
+```
+
+### Inserting Data
+
+| BookID | Title                    | Author                | PublishedYear |
+|--------|--------------------------|-----------------------|----------------|
+| 1      | The Great Gatsby         | F. Scott Fitzgerald    | 1925           |
+| 2      | To Kill a Mockingbird    | Harper Lee            | 1960           |
+| 3      | 1984                     | George Orwell         | 1949           |
+
+**Command to Insert Data:**
+
+```sql
+INSERT INTO Books (BookID, Title, Author, PublishedYear) VALUES
+(1, 'The Great Gatsby', 'F. Scott Fitzgerald', 1925),
+(2, 'To Kill a Mockingbird', 'Harper Lee', 1960),
+(3, '1984', 'George Orwell', 1949);
+```
+
+### Querying Data
+
+```sql
+SELECT * FROM Books;
+```
