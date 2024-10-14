@@ -160,7 +160,6 @@ WHERE Grade = '10th';
 | StudentID | FirstName | LastName | Age | Grade |
 |-----------|-----------|----------|-----|-------|
 | 1         | John      | Doe      | 15  | 10th  |
-| 2         | Jane      | Smith    | 15  | 9th   |
 
 
 
