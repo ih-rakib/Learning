@@ -1,6 +1,8 @@
+### General coding pattern templates and some random examples
+
 # Sliding Window
 
-## Fixed Size
+## Fixed Size Sliding Window Template
 
 ```c++
 int left = 0, right = 0;
@@ -31,7 +33,7 @@ while (right < size) {
 - [Permutation in String](https://leetcode.com/problems/permutation-in-string/)
 
 
-## Variable Size
+## Variable Size Sliding Window Template
 
 ```c++
 int left = 0, right = 0;
@@ -61,6 +63,9 @@ while (right < size) {
 - [Subarrays with K Different Integers](https://leetcode.com/problems/subarrays-with-k-different-integers/)
 - [Find All Anagrams in a String](https://leetcode.com/problems/find-all-anagrams-in-a-string/)
 
+***
+
+# Two Pointers
 
 ## Two Pointers Template
 
@@ -85,6 +90,8 @@ while (left < right) {
 - [Trapping Rain Water](https://leetcode.com/problems/trapping-rain-water/)
 - [Reverse Vowels of a String](https://leetcode.com/problems/reverse-vowels-of-a-string/)
 
+***
+
 ## Standard Binary Search (Search for a Specific Value)
 
 ```c++
@@ -108,6 +115,10 @@ int binarySearch(vector<int>& arr, int target) {
     return -1;  // Target not found
 }
 ```
+
+***
+
+# Binary Search
 
 ## Binary Search for Lower Bound (First Occurrence)
 
@@ -207,6 +218,9 @@ double minimizeMaxDistance(vector<int>& stations, int K) {
 - [Minimum in Rotated Sorted Array](https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/)
 - [Capacity To Ship Packages Within D Days](https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/)
 
+***
+
+# Backtracking
 
 ## Backtracking Template
 
@@ -234,6 +248,9 @@ void backtrack(/* parameters */) {
 - [Combination Sum](https://leetcode.com/problems/combination-sum/)
 - [Word Search](https://leetcode.com/problems/word-search/)
 
+***
+
+# Dynamic Programming
 
 ## Dynamic Programming Template
 
@@ -260,6 +277,9 @@ for (int i = 0; i < size; i++) {
 - [Edit Distance](https://leetcode.com/problems/edit-distance/)
 - [Unique Paths](https://leetcode.com/problems/unique-paths/)
 
+*** 
+
+# Breadth-First Search (BFS)
 
 ## Breadth-First Search (BFS) Template
 
@@ -291,6 +311,10 @@ void bfs(/* parameters */) {
 - [Minimum Depth of Binary Tree](https://leetcode.com/problems/minimum-depth-of-binary-tree/)
 - [Shortest Path in a Binary Matrix](https://leetcode.com/problems/shortest-path-in-a-binary-matrix/)
 
+***
+
+# Depth-First Search (DFS)
+
 ## Depth-First Search (DFS) Template
 
 ```c++
@@ -315,14 +339,9 @@ void dfs(/* parameters */) {
 - [Generate Parentheses](https://leetcode.com/problems/generate-parentheses/)
 - [Letter Combinations of a Phone Number](https://leetcode.com/problems/letter-combinations-of-a-phone-number/)
 
-## 
+***
 
-```c++
-
-```
-
-### 
-
+# 
 
 ## 
 
@@ -332,6 +351,21 @@ void dfs(/* parameters */) {
 
 ### 
 
+***
+
+#
+
+## 
+
+```c++
+
+```
+
+### 
+
+***
+
+# 
 
 ## 
 
