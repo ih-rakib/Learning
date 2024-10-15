@@ -14,6 +14,7 @@
 - **PostgreSQL** (powerful open-source database)
 
 ### Online Environment
+- [SQLzoo](https://sqlzoo.net/wiki/SQL_Tutorial)
 - [SQLite Online](https://sqliteonline.com/)
 - [DB Fiddle](https://www.db-fiddle.com/)
 
