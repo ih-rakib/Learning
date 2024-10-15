@@ -255,4 +255,227 @@ After deletion:
 | 1        | Introduction to SQL  | Dr. Brown      | 4       |
 | 2        | Data Structures      | Dr. Lee        | 4       |
 
+Great! 😄
+> create, insert, update, filtering, delete done!
 
+Now -->
+
+- Insert more Data
+- Filtering Data with WHERE Clause
+- Sorting Data with ORDER BY
+- Using Aggregate Functions
+- Grouping Data with GROUP BY
+- Joining Tables
+
+1. Insert More Data
+```
+INSERT INTO Courses(CourseId, CourseName, Instructor, Credits) VALUES
+(3, 'Web Development', 'Dr Han', 2),
+(4, 'Machine Learning', 'Dr Bota', 1),
+(5, 'AI', 'Dr Matata', 3),
+(6, 'Software Engineering', 'Lun Do', 4),
+(7, 'UI/UX Development', 'Kevin Chik', 2);
+
+SELECT * FROM Courses;
+```
+
+| CourseID | CourseName           | Instructor     | Credits |
+|----------|----------------------|----------------|---------|
+| 1        | Introduction to SQL  | Dr. Brown      | 4       |
+| 2        | Data Structures      | Dr. Lee        | 4       |
+| 3        | Web Development	  | Dr Han	       | 2       |
+| 4        | Machine Learning	  | Dr Bota	       | 1       |
+| 5        | AI                	  | Dr Matata	   | 3       |
+| 6        | Software Engineering | Lun Do	       | 4       |
+| 7        | UI/UX Development	  | Kevin Chik	   | 2       |
+
+2. Filtering Data with WHERE Clause
+
+```sql
+SELECT * FROM Courses
+WHERE Credits > 2;
+```
+
+| CourseID | CourseName           | Instructor     | Credits |
+|----------|----------------------|----------------|---------|
+| 1        | Introduction to SQL  | Dr. Brown      | 4       |
+| 2        | Data Structures      | Dr. Lee        | 4       |
+| 6        | Software Engineering | Lun Do	       | 4       |
+| 5        | AI                	  | Dr Matata	   | 3       |
+
+
+3. Sorting Data with ORDER BY
+
+```sql
+SELECT * FROM Courses
+ORDER BY Credits DESC;
+```
+
+| CourseID | CourseName           | Instructor     | Credits |
+|----------|----------------------|----------------|---------|
+| 1        | Introduction to SQL  | Dr. Brown      | 4       |
+| 2        | Data Structures      | Dr. Lee        | 4       |
+| 6        | Software Engineering  | Lun Do        | 4       |
+| 5        | AI                   | Dr Matata      | 3       |
+| 3        | Web Development      | Dr Han         | 2       |
+| 7        | UI/UX Development    | Kevin Chik     | 2       |
+| 4        | Machine Learning     | Dr Bota        | 1       |
+
+
+4. Using Aggregate Functions
+
+Aggregate functions perform calculations on a set of values and return a single value.
+
+**Example: Count the Number of Courses**
+
+```sql
+SELECT COUNT(*) AS NumberOfCourses FROM Courses;
+```
+
+| NumberOfCourses |
+|------------------|
+| 7                |
+
+
+**Example: Find the Average Credits of Courses**
+
+```sql
+SELECT AVG(Credits) AS AverageCredits FROM Courses;
+```
+
+| AverageCredits |
+|-----------------|
+| 3.14            |
+
+
+5. Grouping Data with GROUP BY
+
+```sql
+SELECT Credits, COUNT(*) AS NumberOfCourses 
+FROM Courses 
+GROUP BY Credits;
+```
+
+| Credits | NumberOfCourses |
+|---------|-----------------|
+| 1       | 1               |
+| 2       | 3               |
+| 3       | 1               |
+| 4       | 3               |
+
+
+6. Joining Tables
+
+Joining tables allows you to combine rows from two or more tables based on a related column.
+
+a. Creating Another Table
+Let's create an Instructors table for demonstration.
+
+Command to Create Instructors Table:
+
+```sql
+CREATE TABLE Instructors (
+    InstructorID INTEGER PRIMARY KEY,
+    InstructorName TEXT NOT NULL,
+    ExperienceYears INTEGER
+);
+```
+
+Insert Data into Instructors Table:
+
+```sql
+INSERT INTO Instructors (InstructorID, InstructorName, ExperienceYears) VALUES
+(1, 'Dr. Brown', 10),
+(2, 'Dr. Lee', 8),
+(3, 'Dr Han', 5),
+(4, 'Dr Bota', 6),
+(5, 'Dr Matata', 7),
+(6, 'Lun Do', 4),
+(7, 'Kevin Chik', 3);
+```
+
+```sql
+SELECT * FROM Instructors;
+```
+
+| InstructorID | InstructorName | ExperienceYears |
+|--------------|----------------|------------------|
+| 1            | Dr. Brown      | 10               |
+| 2            | Dr. Lee        | 8                |
+| 3            | Dr Han         | 5                |
+| 4            | Dr Bota        | 6                |
+| 5            | Dr Matata      | 7                |
+| 6            | Lun Do         | 4                |
+| 7            | Kevin Chik     | 3                |
+
+```sql
+SELECT * FROM Courses;
+```
+
+| CourseID | CourseName           | Instructor     | Credits |
+|----------|----------------------|----------------|---------|
+| 1        | Introduction to SQL  | Dr. Brown      | 4       |
+| 2        | Data Structures      | Dr. Lee        | 4       |
+| 3        | Web Development      | Dr Han         | 2       |
+| 4        | Machine Learning     | Dr Bota        | 1       |
+| 5        | AI                   | Dr Matata      | 3       |
+| 6        | Software Engineering  | Lun Do         | 4       |
+| 7        | UI/UX Development    | Kevin Chik     | 2       |
+``
+
+
+**Joining Courses and Instructors Tables**
+
+Now that we have data in both Courses and Instructors, we can perform a join operation to combine relevant information.
+
+```sql
+SELECT C.CourseName, I.InstructorName, I.ExperienceYears
+FROM Courses C
+JOIN Instructors I ON C.Instructor = I.InstructorName;
+```
+
+| CourseName           | InstructorName | ExperienceYears |
+|----------------------|----------------|------------------|
+| Introduction to SQL  | Dr. Brown      | 10               |
+| Data Structures      | Dr. Lee        | 8                |
+| Web Development      | Dr Han         | 5                |
+| Machine Learning     | Dr Bota       | 6                |
+| AI                   | Dr Matata      | 7                |
+| Software Engineering  | Lun Do        | 4                |
+| UI/UX Development    | Kevin Chik    | 3                |
+
+
+### SQL Query and Explanation
+
+```sql
+SELECT C.CourseName, I.InstructorName, I.ExperienceYears
+FROM Courses C
+JOIN Instructors I ON C.Instructor = I.InstructorName;
+```
+
+**1. Column Selection:**
+
+- This part specifies the columns to retrieve:
+  - `C.CourseName` refers to the course name from the `Courses` table (aliased as `C`).
+  - `I.InstructorName` and `I.ExperienceYears` refer to the instructor's name and their years of experience from the `Instructors` table (aliased as `I`).
+
+---
+
+**2. Primary Table:**
+
+- This indicates that the query is primarily selecting data from the `Courses` table, which is aliased as `C` for easier reference in the query.
+
+---
+
+**3. Joining Tables:**
+
+- This part joins the `Instructors` table, which is aliased as `I`, with the `Courses` table.
+- The `JOIN` operation is used to combine rows from both tables based on a related column between them.
+
+---
+
+**4. Join Condition:**
+
+- This specifies the condition for the join.
+- It indicates that the `Instructor` column from the `Courses` table must match the `InstructorName` column from the `Instructors` table.
+- This allows the query to pull the corresponding instructor's details for each course.
