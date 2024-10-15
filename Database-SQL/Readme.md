@@ -86,6 +86,8 @@ SELECT * FROM Books;
 
 # Examples
 
+## Example 1:
+
 ## Create this Table
 
 | StudentID | FirstName | LastName | Age | Grade |
@@ -162,5 +164,95 @@ WHERE Grade = '10th';
 |-----------|-----------|----------|-----|-------|
 | 1         | John      | Doe      | 15  | 10th  |
 
+
+## Example 2:
+
+1. Creating a Database
+
+```sql
+CREATE DATABASE UniversityDB;
+```
+
+2. Using the Database
+
+```sql
+USE UniversityDB;
+```
+
+3. Creating a Courses Table
+
+| CourseID | CourseName           | Instructor     | Credits |
+|----------|----------------------|----------------|---------|
+| INTEGER  | TEXT                 | TEXT           | INTEGER |
+
+```sql
+CREATE TABLE Courses (
+    CourseID INTEGER PRIMARY KEY,
+    CourseName TEXT NOT NULL,
+    Instructor TEXT NOT NULL,
+    Credits INTEGER
+);
+```
+
+4. Inserting Data into the Courses Table
+
+| CourseID | CourseName           | Instructor     | Credits |
+|----------|----------------------|----------------|---------|
+| 1        | Introduction to SQL  | Dr. Brown      | 4       |
+| 2        | Data Structures      | Dr. Lee        | 3       |
+| 3        | Web Development      | Dr. Smith      | 5       |
+
+```sql
+INSERT INTO Courses (CourseID, CourseName, Instructor, Credits) VALUES
+(1, 'Introduction to SQL', 'Dr. Brown', 4),
+(2, 'Data Structures', 'Dr. Lee', 3),
+(3, 'Web Development', 'Dr. Smith', 5);
+```
+
+5. Querying Data
+
+```sql
+SELECT * FROM Courses;
+```
+
+this will return:
+
+| CourseID | CourseName           | Instructor     | Credits |
+|----------|----------------------|----------------|---------|
+| 1        | Introduction to SQL  | Dr. Brown      | 4       |
+| 2        | Data Structures      | Dr. Lee        | 3       |
+| 3        | Web Development      | Dr. Smith      | 5       |
+
+
+6. Updating Data in the Courses Table
+
+```sql
+UPDATE Courses
+SET Credits = 4
+WHERE CourseName = 'Data Structures';
+```
+
+After updating the table it will look like: 
+
+| CourseID | CourseName           | Instructor     | Credits |
+|----------|----------------------|----------------|---------|
+| 1        | Introduction to SQL  | Dr. Brown      | 4       |
+| 2        | Data Structures      | Dr. Lee        | 4       |
+| 3        | Web Development      | Dr. Smith      | 5       |
+
+
+7. Deleting Data from the Courses Table
+
+```sql
+DELETE FROM Courses
+WHERE CourseName = 'Web Development';
+```
+
+After deletion: 
+
+| CourseID | CourseName           | Instructor     | Credits |
+|----------|----------------------|----------------|---------|
+| 1        | Introduction to SQL  | Dr. Brown      | 4       |
+| 2        | Data Structures      | Dr. Lee        | 4       |
 
 
