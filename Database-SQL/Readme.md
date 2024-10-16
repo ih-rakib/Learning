@@ -479,3 +479,488 @@ JOIN Instructors I ON C.Instructor = I.InstructorName;
 - This specifies the condition for the join.
 - It indicates that the `Instructor` column from the `Courses` table must match the `InstructorName` column from the `Instructors` table.
 - This allows the query to pull the corresponding instructor's details for each course.
+
+-------
+
+so far : 
+
+### Courses Table
+
+| CourseID | CourseName           | Instructor     | Credits |
+|----------|----------------------|----------------|---------|
+| 1        | Introduction to SQL  | Dr. Brown      | 4       |
+| 2        | Data Structures      | Dr. Lee        | 4       |
+| 3        | Web Development      | Dr Han         | 2       |
+| 4        | Machine Learning     | Dr. Bota       | 1       |
+| 5        | AI                   | Dr Matata      | 3       |
+| 6        | Software Engineering  | Lun Do         | 4       |
+| 7        | UI/UX Development    | Kevin Chik     | 2       |
+
+
+### Instructors Table
+
+| InstructorID | InstructorName | ExperienceYears |
+|--------------|----------------|------------------|
+| 1            | Dr. Brown      | 10               |
+| 2            | Dr. Lee        | 8                |
+| 3            | Dr Han         | 5                |
+| 4            | Dr. Bota       | 6                |
+| 5            | Dr. Matata     | 7                |
+| 6            | Lun Do         | 4                |
+| 7            | Kevin Chik     | 3                |
+
+
+7. LEFT JOIN
+
+A LEFT JOIN returns all records from the left table (Courses) and the matched records from the right table (Instructors). If there is no match, the result is NULL on the right side.
+
+**Example: Left Join on Courses and Instructors**
+
+```sql
+SELECT C.CourseName, I.InstructorName
+FROM Courses C
+LEFT JOIN Instructors I ON C.Instructor = I.InstructorName;
+```
+
+| CourseName           | InstructorName |
+|----------------------|----------------|
+| Introduction to SQL  | Dr. Brown      |
+| Data Structures      | Dr. Lee        |
+| Web Development      | Dr Han         |
+| Machine Learning     | Dr. Bota      |
+| AI                   | Dr. Matata     |
+| Software Engineering  | Lun Do         |
+| UI/UX Development    | Kevin Chik    |
+
+
+8. RIGHT JOIN
+
+A RIGHT JOIN returns all records from the right table (Instructors) and the matched records from the left table (Courses). If there is no match, the result is NULL on the left side.
+
+```sql
+SELECT C.CourseName, I.InstructorName
+FROM Courses C
+RIGHT JOIN Instructors I ON C.Instructor = I.InstructorName;
+```
+
+| CourseName           | InstructorName |
+|----------------------|----------------|
+| Introduction to SQL  | Dr. Brown      |
+| Data Structures      | Dr. Lee        |
+| Web Development      | Dr Han         |
+| Machine Learning     | Dr. Bota      |
+| AI                   | Dr. Matata     |
+| Software Engineering  | Lun Do         |
+| UI/UX Development    | Kevin Chik     |
+
+
+### Key Differences
+
+Returned Records:
+
+LEFT JOIN: Returns all rows from the left table, regardless of matches in the right table.
+RIGHT JOIN: Returns all rows from the right table, regardless of matches in the left table.
+Handling Non-Matches:
+
+In a LEFT JOIN, if there are no matches for a left table row, the right side shows NULL.
+In a RIGHT JOIN, if there are no matches for a right table row, the left side shows NULL.
+
+
+😕 Can't find any difference???
+
+1. Insert a New Course Without an Instructor
+
+Let’s add a course named "Cloud Computing" that has no instructor assigned.
+
+```sql
+INSERT INTO Courses (CourseID, CourseName, Instructor, Credits) VALUES 
+(8, 'Cloud Computing', 'Dr. Taylor', 3);
+```
+
+***Updated Courses Table:***
+
+| CourseID | CourseName           | Instructor     | Credits |
+|----------|----------------------|----------------|---------|
+| 1        | Introduction to SQL  | Dr. Brown      | 4       |
+| 2        | Data Structures      | Dr. Lee        | 4       |
+| 3        | Web Development      | Dr Han         | 2       |
+| 4        | Machine Learning     | Dr. Bota      | 1       |
+| 5        | AI                   | Dr. Matata     | 3       |
+| 6        | Software Engineering  | Lun Do         | 4       |
+| 7        | UI/UX Development    | Kevin Chik     | 2       |
+| 8        | Cloud Computing      | Dr. Taylor     | 3       |
+
+
+2. Insert a New Instructor Without a Course
+
+Let’s add an instructor named "Dr. Smith" who has no courses assigned.
+
+```sql
+INSERT INTO Instructors (InstructorID, InstructorName, ExperienceYears) VALUES 
+(8, 'Dr. Smith', 2);
+```
+
+***Updated Instructors Table:***
+
+| InstructorID | InstructorName | ExperienceYears |
+|--------------|----------------|------------------|
+| 1            | Dr. Brown      | 10               |
+| 2            | Dr. Lee        | 8                |
+| 3            | Dr Han         | 5                |
+| 4            | Dr. Bota      | 6                |
+| 5            | Dr. Matata     | 7                |
+| 6            | Lun Do         | 4                |
+| 7            | Kevin Chik     | 3                |
+| 8            | Dr. Smith      | 2                |
+
+
+```sql
+UPDATE Courses
+SET Instructor = NULL
+WHERE CourseID = 8;  
+```
+
+| CourseID | CourseName           | Instructor     | Credits |
+|----------|----------------------|----------------|---------|
+| 1        | Introduction to SQL  | Dr. Brown      | 4       |
+| 2        | Data Structures      | Dr. Lee        | 4       |
+| 3        | Web Development      | Dr Han         | 2       |
+| 4        | Machine Learning     | Dr. Bota       | 1       |
+| 5        | AI                   | Dr. Matata     | 3       |
+| 6        | Software Engineering  | Lun Do         | 4       |
+| 7        | UI/UX Development    | Kevin Chik     | 2       |
+| 8        | Cloud Computing      | NULL           | 3       |
+
+
+
+### LEFT JOIN Example
+
+Now, if we perform a LEFT JOIN to see all courses and their corresponding instructors:
+
+```sql
+SELECT C.CourseName, I.InstructorName
+FROM Courses C
+LEFT JOIN Instructors I ON C.Instructor = I.InstructorName;
+```
+
+| CourseName           | InstructorName |
+|----------------------|----------------|
+| Introduction to SQL  | Dr. Brown      |
+| Data Structures      | Dr. Lee        |
+| Web Development      | Dr Han         |
+| Machine Learning     | Dr. Bota      |
+| AI                   | Dr. Matata     |
+| Software Engineering  | Lun Do         |
+| UI/UX Development    | Kevin Chik     |
+| Cloud Computing      | NULL           |
+
+
+### RIGHT JOIN Example
+
+```sql
+SELECT C.CourseName, I.InstructorName
+FROM Courses C
+RIGHT JOIN Instructors I ON C.Instructor = I.InstructorName;
+```
+
+| CourseName           | InstructorName |
+|----------------------|----------------|
+| Introduction to SQL  | Dr. Brown      |
+| Data Structures      | Dr. Lee        |
+| Web Development      | Dr Han         |
+| Machine Learning     | Dr. Bota      |
+| AI                   | Dr. Matata     |
+| Software Engineering  | Lun Do         |
+| UI/UX Development    | Kevin Chik     |
+| NULL                 | Dr. Smith      |
+
+
+9. FULL OUTER JOIN
+A FULL OUTER JOIN returns all records from both tables, with matching records from both sides when available. If there is no match, NULL values will appear in the result for non-matching records.
+
+```sql
+SELECT C.CourseName, I.InstructorName
+FROM Courses C
+FULL OUTER JOIN Instructors I ON C.Instructor = I.InstructorName;
+```
+
+| CourseName           | InstructorName |
+|----------------------|----------------|
+| Introduction to SQL  | Dr. Brown      |
+| Data Structures      | Dr. Lee        |
+| Web Development      | Dr Han         |
+| Machine Learning     | Dr. Bota      |
+| AI                   | Dr. Matata     |
+| Software Engineering  | Lun Do         |
+| UI/UX Development    | Kevin Chik     |
+| Cloud Computing      | NULL           |
+| NULL                 | Dr. Smith      |
+
+
+10. CROSS JOIN
+A CROSS JOIN produces a Cartesian product of two tables, which means each row from the first table is combined with all rows from the second table.
+
+```sql
+SELECT C.CourseName, I.InstructorName
+FROM Courses C
+CROSS JOIN Instructors I;
+```
+
+| CourseName           | InstructorName |
+|----------------------|----------------|
+| Introduction to SQL  | Dr. Brown      |
+| Introduction to SQL  | Dr. Lee        |
+| Introduction to SQL  | Dr Han         |
+| Introduction to SQL  | Dr. Bota      |
+| Introduction to SQL  | Dr. Matata     |
+| Introduction to SQL  | Lun Do         |
+| Introduction to SQL  | Kevin Chik     |
+| Introduction to SQL  | Dr. Smith      |
+| Data Structures      | Dr. Brown      |
+| Data Structures      | Dr. Lee        |
+| Data Structures      | Dr Han         |
+| Data Structures      | Dr. Bota      |
+| Data Structures      | Dr. Matata     |
+| Data Structures      | Lun Do         |
+| Data Structures      | Kevin Chik     |
+| Data Structures      | Dr. Smith      |
+| Web Development      | Dr. Brown      |
+| Web Development      | Dr. Lee        |
+| Web Development      | Dr Han         |
+| Web Development      | Dr. Bota      |
+| Web Development      | Dr. Matata     |
+| Web Development      | Lun Do         |
+| Web Development      | Kevin Chik     |
+| Web Development      | Dr. Smith      |
+| Machine Learning     | Dr. Brown      |
+| Machine Learning     | Dr. Lee        |
+| Machine Learning     | Dr Han         |
+| Machine Learning     | Dr. Bota      |
+| Machine Learning     | Dr. Matata     |
+| Machine Learning     | Lun Do         |
+| Machine Learning     | Kevin Chik     |
+| Machine Learning     | Dr. Smith      |
+| AI                   | Dr. Brown      |
+| AI                   | Dr. Lee        |
+| AI                   | Dr Han         |
+| AI                   | Dr. Bota      |
+| AI                   | Dr. Matata     |
+| AI                   | Lun Do         |
+| AI                   | Kevin Chik     |
+| AI                   | Dr. Smith      |
+| Software Engineering  | Dr. Brown      |
+| Software Engineering  | Dr. Lee        |
+| Software Engineering  | Dr Han         |
+| Software Engineering  | Dr. Bota      |
+| Software Engineering  | Dr. Matata     |
+| Software Engineering  | Lun Do         |
+| Software Engineering  | Kevin Chik     |
+| Software Engineering  | Dr. Smith      |
+| UI/UX Development    | Dr. Brown      |
+| UI/UX Development    | Dr. Lee        |
+| UI/UX Development    | Dr Han         |
+| UI/UX Development    | Dr. Bota      |
+| UI/UX Development    | Dr. Matata     |
+| UI/UX Development    | Lun Do         |
+| UI/UX Development    | Kevin Chik     |
+| UI/UX Development    | Dr. Smith      |
+| Cloud Computing      | Dr. Brown      |
+| Cloud Computing      | Dr. Lee        |
+| Cloud Computing      | Dr Han         |
+| Cloud Computing      | Dr. Bota      |
+| Cloud Computing      | Dr. Matata     |
+| Cloud Computing      | Lun Do         |
+| Cloud Computing      | Kevin Chik     |
+| Cloud Computing      | Dr. Smith      |
+
+
+11. SELF JOIN
+A SELF JOIN is a regular join but the table is joined with itself. This is useful for comparing rows within the same table.
+
+Example: Self Join on Instructors
+In this case, we can use a self-join to find pairs of instructors where one has more experience than the other
+
+existing table: 
+
+### Instructors Table
+
+| InstructorID | InstructorName | ExperienceYears |
+|--------------|----------------|------------------|
+| 1            | Dr. Brown      | 10               |
+| 2            | Dr. Lee        | 8                |
+| 3            | Dr Han         | 5                |
+| 4            | Dr. Bota       | 6                |
+| 5            | Dr. Matata     | 7                |
+| 6            | Lun Do         | 4                |
+| 7            | Kevin Chik     | 3                |
+
+```sql
+SELECT A.InstructorName AS MoreExperienced, B.InstructorName AS LessExperienced
+FROM Instructors A
+JOIN Instructors B ON A.ExperienceYears > B.ExperienceYears;
+```
+
+| MoreExperienced | LessExperienced |
+|------------------|-----------------|
+| Dr. Brown        | Dr. Lee         |
+| Dr. Brown        | Dr. Han         |
+| Dr. Brown        | Dr. Bota        |
+| Dr. Brown        | Dr. Matata     |
+| Dr. Brown        | Lun Do          |
+| Dr. Brown        | Kevin Chik      |
+| Dr. Brown        | Dr. Smith       |
+| Dr. Lee          | Dr. Han         |
+| Dr. Lee          | Dr. Bota        |
+| Dr. Lee          | Dr. Matata      |
+| Dr. Lee          | Lun Do          |
+| Dr. Lee          | Kevin Chik      |
+| Dr. Lee          | Dr. Smith       |
+| Dr. Han          | Dr. Bota        |
+| Dr. Han          | Dr. Matata      |
+| Dr. Han          | Lun Do          |
+| Dr. Han          | Kevin Chik      |
+| Dr. Han          | Dr. Smith       |
+| Dr. Bota         | Dr. Matata      |
+| Dr. Bota         | Lun Do          |
+| Dr. Bota         | Kevin Chik      |
+| Dr. Bota         | Dr. Smith       |
+| Dr. Matata      | Lun Do          |
+| Dr. Matata      | Kevin Chik      |
+| Dr. Matata      | Dr. Smith       |
+| Lun Do          | Kevin Chik      |
+| Lun Do          | Dr. Smith       |
+| Kevin Chik      | Dr. Smith       |
+
+----------
+
+
+# Next Topic: Subquery
+
+Example: Subquery in the WHERE Clause
+Finding all courses taught by instructors with more than 5 years of experience:
+
+```sql
+SELECT CourseName
+FROM Courses
+WHERE Instructor IN (
+    SELECT InstructorName
+    FROM Instructors
+    WHERE ExperienceYears > 5
+);
+```
+
+| CourseName           |
+|----------------------|
+| Introduction to SQL  |
+| Data Structures      |
+| Machine Learning     |
+| AI                   |
+| Software Engineering  |
+| UI/UX Development    |
+
+
+Example: Subquery in the SELECT Clause
+Listing each instructor with the number of courses they teach:
+
+```sql
+SELECT I.InstructorName,
+       (SELECT COUNT(*)
+        FROM Courses C
+        WHERE C.Instructor = I.InstructorName) AS CourseCount
+FROM Instructors I;
+```
+
+| InstructorName | CourseCount |
+|----------------|-------------|
+| Dr. Brown      | 1           |
+| Dr. Lee        | 1           |
+| Dr Han         | 1           |
+| Dr. Bota       | 1           |
+| Dr. Matata     | 1           |
+| Lun Do         | 1           |
+| Kevin Chik     | 1           |
+| Dr. Smith      | 0           |
+
+
+Example: Subquery in the FROM Clause
+Creating a temporary table to select experienced instructors:
+
+```sql
+SELECT InstructorName, ExperienceYears
+FROM (SELECT InstructorName, ExperienceYears
+      FROM Instructors
+      WHERE ExperienceYears > 5) AS ExperiencedInstructors;
+```
+
+| InstructorName | ExperienceYears |
+|----------------|------------------|
+| Dr. Brown      | 10               |
+| Dr. Lee        | 8                |
+| Dr. Bota       | 6                |
+| Dr. Matata     | 7                |
+
+you can't see the name ExperiencedInstructors in the output, as it serves as an internal structure for the query processing rather than a part of the final result set.
+
+:))))))
+
+```sql
+SELECT InstructorName, ExperienceYears
+FROM Instructors
+WHERE ExperienceYears > 5;
+```
+
+:))))))
+
+
+# Next Topic: Common Table Expressions (CTEs)
+
+Common Table Expressions (CTEs) provide a way to create temporary result sets that can be referenced within a SELECT, INSERT, UPDATE, or DELETE statement. They can make complex queries easier to read and maintain.
+
+```sql
+WITH ExperiencedInstructors AS (
+    SELECT InstructorName, ExperienceYears
+    FROM Instructors
+    WHERE ExperienceYears > 5
+)
+SELECT InstructorName
+FROM ExperiencedInstructors;
+```
+
+| InstructorName |
+|----------------|
+| Dr. Brown      |
+| Dr. Lee        |
+| Dr. Bota       |
+| Dr. Matata     |
+
+
+
+# Next Topic: Window Functions
+
+Window functions allow you to perform calculations across a set of table rows that are somehow related to the current row. They are useful for running totals, moving averages, and ranking data.
+
+Example: Using the ROW_NUMBER() Window Function
+
+Let's say we want to assign a unique rank to each instructor based on their years of experience.
+
+```sql
+SELECT InstructorName, ExperienceYears,
+       ROW_NUMBER() OVER (ORDER BY ExperienceYears DESC) AS Rank
+FROM Instructors;
+```
+
+| InstructorName | ExperienceYears | Rank |
+|----------------|------------------|------|
+| Dr. Brown      | 10               | 1    |
+| Dr. Lee        | 8                | 2    |
+| Dr. Matata     | 7                | 3    |
+| Dr. Bota       | 6                | 4    |
+| Dr Han         | 5                | 5    |
+| Lun Do         | 4                | 6    |
+| Kevin Chik     | 3                | 7    |
+| Dr. Smith      | 2                | 8    |
+
+Explanation:
+Window Function: ROW_NUMBER() assigns a unique sequential integer to rows within a partition of a result set, starting at 1 for the first row in each partition.
+ORDER BY Clause: The ORDER BY ExperienceYears DESC clause specifies that the ranking should be based on the years of experience in descending order.
+Window functions allow you to perform calculations across a defined range of rows while maintaining the ability to return individual row data.
