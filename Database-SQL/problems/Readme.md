@@ -76,13 +76,63 @@ WHERE T.visit_id IS NULL
 GROUP BY V.customer_id;
 ```
 
-9. []()
+9. [Rising Temperature](https://leetcode.com/problems/rising-temperature/)
+
+```sql
+SELECT W1.id FROM Weather AS W1
+JOIN Weather AS W2
+ON W1.recordDate = DATE_ADD(W2.recordDate, INTERVAL 1 DAY)
+WHERE W1.temperature > W2.temperature;
+```
+
+another way(easier)
+
+```sql
+SELECT W1.id 
+FROM Weather AS W1, Weather AS W2
+WHERE W1.recordDate = W2.recordDate + INTERVAL 1 DAY
+AND W1.temperature > W2.temperature;
+```
+
+10. [Average Time of Process per Machine](https://leetcode.com/problems/average-time-of-process-per-machine/)
+
+```sql
+SELECT machine_id,
+    ROUND(AVG(end_time - start_time), 3) AS processing_time
+FROM (
+    SELECT machine_id, process_id,
+        MIN(timestamp) AS start_time,
+        MAX(timestamp) AS end_time
+        FROM Activity
+        WHERE activity_type IN ('start', 'end')
+    GROUP BY machine_id, process_id
+) AS time_data
+WHERE start_time IS NOT NULL AND end_time IS NOT NULL
+GROUP BY machine_id;
+```
+better
+
+```sql
+SELECT machine_id,
+       ROUND(AVG(end_time - start_time), 3) AS processing_time
+FROM (
+    SELECT machine_id,
+           process_id,
+           MIN(timestamp) AS start_time,
+           MAX(timestamp) AS end_time
+    FROM Activity
+    GROUP BY machine_id, process_id
+) AS time_data
+GROUP BY machine_id;
+```
+
+11. []()
 
 ```sql
 
 ```
 
-10. []()
+12. []()
 
 ```sql
 
