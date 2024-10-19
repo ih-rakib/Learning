@@ -154,27 +154,24 @@ SELECT *
 FROM Students;
 ```
 
-+------------+--------------+
 | student_id | student_name |
-+------------+--------------+
+|------------|--------------|
 | 1          | Alice        |
 | 2          | Bob          |
 | 6          | Alex         |
 | 13         | John         |
-+------------+--------------+
+
 
 ```sql
 SELECT *
 FROM Subjects;
 ```
 
-+--------------+
 | subject_name |
-+--------------+
+|--------------|
 | Math         |
 | Physics      |
 | Programming  |
-+--------------+
 
 
 ```sql
@@ -185,9 +182,8 @@ CROSS JOIN Subjects SUB;
 
 The CROSS JOIN generates all possible combinations of students and subjects, meaning each student will be listed for each subject.
 
-+------------+--------------+--------------+
 | student_id | student_name | subject_name |
-+------------+--------------+--------------+
+|------------|--------------|--------------|
 | 1          | Alice        | Math         |
 | 1          | Alice        | Physics      |
 | 1          | Alice        | Programming  |
@@ -200,7 +196,7 @@ The CROSS JOIN generates all possible combinations of students and subjects, mea
 | 13         | John         | Math         |
 | 13         | John         | Physics      |
 | 13         | John         | Programming  |
-+------------+--------------+--------------+
+
 
 
 Next, we will use a LEFT JOIN to combine the above results with the Examinations table. This will allow us to see how many times each student attended each subject.
@@ -212,9 +208,8 @@ CROSS JOIN Subjects SUB
 LEFT JOIN Examinations E ON S.student_id = E.student_id AND SUB.subject_name = E.subject_name;
 ```
 
-+------------+--------------+--------------+------------------+
 | student_id | student_name | subject_name | exam_student_id  |
-+------------+--------------+--------------+------------------+
+|------------|--------------|--------------|------------------|
 | 1          | Alice        | Math         | 1                |
 | 1          | Alice        | Physics      | 1                |
 | 1          | Alice        | Programming  | 1                |
@@ -227,7 +222,6 @@ LEFT JOIN Examinations E ON S.student_id = E.student_id AND SUB.subject_name = E
 | 13         | John         | Math         | 13               |
 | 13         | John         | Physics      | 13               |
 | 13         | John         | Programming  | 13               |
-+------------+--------------+--------------+------------------+
 
 
 Counting Attendance
@@ -244,9 +238,8 @@ LEFT JOIN Examinations E ON S.student_id = E.student_id AND SUB.subject_name = E
 GROUP BY S.student_id, S.student_name, SUB.subject_name;
 ```
 
-+------------+--------------+--------------+----------------+
 | student_id | student_name | subject_name | attended_exams |
-+------------+--------------+--------------+----------------+
+|------------|--------------|--------------|----------------|
 | 1          | Alice        | Math         | 3              |
 | 1          | Alice        | Physics      | 2              |
 | 1          | Alice        | Programming  | 1              |
@@ -259,7 +252,6 @@ GROUP BY S.student_id, S.student_name, SUB.subject_name;
 | 13         | John         | Math         | 1              |
 | 13         | John         | Physics      | 1              |
 | 13         | John         | Programming  | 1              |
-+------------+--------------+--------------+----------------+
 
 
 >> The COALESCE function in SQL is used to return the first non-null value in a list of arguments. It's a very useful function when you want to ensure that a result does not end up being null, especially when dealing with outer joins, where some values may be null.
