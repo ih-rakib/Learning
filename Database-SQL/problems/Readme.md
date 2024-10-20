@@ -97,8 +97,8 @@ AND W1.temperature > W2.temperature;
 10. [Average Time of Process per Machine](https://leetcode.com/problems/average-time-of-process-per-machine/)
 
 ```sql
-SELECT machine_id,
-    ROUND(AVG(end_time - start_time), 3) AS processing_time
+SEL machine_id,
+    ROUND(AVG(end_time - start_time), 3)ECT AS processing_time
 FROM (
     SELECT machine_id, process_id,
         MIN(timestamp) AS start_time,
@@ -283,13 +283,73 @@ COALESCE(COUNT(E.student_id), 0) checks the result of the count.
 If the count is NULL, it replaces it with 0.
 This means that instead of showing a blank or NULL value for students who have not attended any exams, it will explicitly show 0.
 
-13. []()
+13. [Not Boring Movies](https://leetcode.com/problems/not-boring-movies/)
+
+```sql
+SELECT * FROM Cinema
+WHERE id % 2 != 0 AND description != "boring"
+ORDER BY rating DESC;
+```
+
+14. [ Average Selling Price](https://leetcode.com/problems/average-selling-price/)
+
+```sql
+SELECT 
+    p.product_id,
+    ROUND(COALESCE(SUM(u.units * p.price) / NULLIF(SUM(u.units), 0), 0), 2) AS average_price
+FROM 
+    Prices p
+LEFT JOIN 
+    UnitsSold u ON p.product_id = u.product_id 
+                AND u.purchase_date BETWEEN p.start_date AND p.end_date
+GROUP BY 
+    p.product_id;
+```
+
+1. **`SELECT`**: This keyword initiates the selection of data from the database.
+   
+   - **`p.product_id`**: This selects the `product_id` from the `Prices` table (aliased as `p`). It ensures that each product ID is included in the final result.
+
+   - **`ROUND(COALESCE(SUM(u.units * p.price) / NULLIF(SUM(u.units), 0), 0), 2) AS average_price`**: This calculates the average price and assigns it an alias `average_price`. Let's break this down further:
+     - **`SUM(u.units * p.price)`**: This computes the total revenue for each product by multiplying the number of units sold (`u.units`) by the price at which those units were sold (`p.price`). The result is summed to get the total revenue across all transactions for each product.
+     - **`SUM(u.units)`**: This sums up all the units sold for each product. This is used as the denominator to calculate the average price.
+     - **`NULLIF(SUM(u.units), 0)`**: This function returns `NULL` if the sum of units sold is `0`. This is important to avoid division by zero when calculating the average price. If there are no units sold, this will prevent an error and allow us to handle the average price calculation gracefully.
+     - **`SUM(u.units * p.price) / NULLIF(SUM(u.units), 0)`**: This expression divides the total revenue by the total units sold. If no units are sold, it will return `NULL` (thanks to the `NULLIF` function).
+     - **`COALESCE(..., 0)`**: This function checks if the result of the division is `NULL`. If it is `NULL`, it returns `0`, indicating that the average price should be considered `0` when there are no sales.
+     - **`ROUND(..., 2)`**: Finally, this function rounds the average price to two decimal places for better presentation.
+
+2. **`FROM Prices p`**: This specifies the main table we are querying from. `Prices` is aliased as `p` for easier reference throughout the query.
+
+3. **`LEFT JOIN UnitsSold u ON p.product_id = u.product_id`**: 
+   
+   - **`LEFT JOIN`**: This type of join returns all records from the `Prices` table (`p`) and the matched records from the `UnitsSold` table (`u`). If there is no match, it will still return the records from `Prices` but with `NULL` values for the columns from `UnitsSold`. This is crucial because we want to include products even if they have no units sold.
+   
+   - **`ON p.product_id = u.product_id`**: This condition specifies how the tables are linked: by matching the `product_id` from both tables. This ensures we are combining relevant data about sales with the corresponding prices.
+
+   - **`AND u.purchase_date BETWEEN p.start_date AND p.end_date`**: This additional condition filters the joined results to only include rows where the `purchase_date` falls within the price validity period (`start_date` to `end_date`). It ensures that only applicable prices are considered when calculating revenue.
+
+4. **`GROUP BY p.product_id`**: This groups the results by `product_id`, which allows us to perform aggregate functions (like `SUM`) for each product. Each product will have its own row in the final result, containing the total revenue and total units sold specific to that product.
+
+
+15. []()
 
 ```sql
 
 ```
 
-14. []()
+16. []()
+
+```sql
+
+```
+
+17. []()
+
+```sql
+
+```
+
+18. []()
 
 ```sql
 
