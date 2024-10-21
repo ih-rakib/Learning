@@ -331,17 +331,71 @@ GROUP BY
 4. **`GROUP BY p.product_id`**: This groups the results by `product_id`, which allows us to perform aggregate functions (like `SUM`) for each product. Each product will have its own row in the final result, containing the total revenue and total units sold specific to that product.
 
 
-15. []()
+15. [Project Employees I](https://leetcode.com/problems/project-employees-i/)
 
 ```sql
-
+SELECT 
+    p.project_id,
+    ROUND(AVG(e.experience_years), 2) AS average_years
+FROM 
+    Project p
+JOIN 
+    Employee e ON p.employee_id = e.employee_id
+GROUP BY 
+    p.project_id;
 ```
 
-16. []()
+16. [Percentage of Users Attended a Contest](https://leetcode.com/problems/percentage-of-users-attended-a-contest/)
 
 ```sql
-
+WITH TotalUsers AS (
+    SELECT COUNT(DISTINCT user_id) AS total_users
+    FROM Users
+),
+RegisteredUsers AS (
+    SELECT contest_id, COUNT(DISTINCT user_id) AS registered_users
+    FROM Register
+    GROUP BY contest_id
+)
+SELECT 
+    r.contest_id,
+    ROUND((r.registered_users * 100.0) / t.total_users, 2) AS percentage
+FROM 
+    RegisteredUsers r
+CROSS JOIN 
+    TotalUsers t
+ORDER BY 
+    percentage DESC,
+    contest_id ASC;
 ```
+
+Another way:
+
+```sql
+SELECT 
+    contest_id,
+    ROUND((COUNT(DISTINCT user_id) * 100.0) / (SELECT COUNT(*) FROM Users), 2) AS percentage
+FROM 
+    Register
+GROUP BY 
+    contest_id
+ORDER BY 
+    percentage DESC, contest_id ASC;
+```
+
+**Steps:**
+Find the total number of unique users from the Users table.
+Count how many unique users registered for each contest from the Register table.
+Calculate the percentage of users who registered for each contest by dividing the number of users registered for the contest by the total number of unique users.
+Round the percentage to 2 decimal places.
+Sort the results by percentage in descending order. If there's a tie, sort by contest_id in ascending order.
+
+**Explanation:**
+*COUNT(DISTINCT user_id)*: This counts the unique users for each contest.
+*(SELECT COUNT(*) FROM Users)*: This gets the total number of users.
+*ROUND((COUNT(DISTINCT user_id) * 100.0) / (SELECT COUNT(*) FROM Users), 2)*: This calculates the percentage of users registered for the contest and rounds it to 2 decimal places.
+*GROUP BY contest_id*: Groups the results by each contest to calculate the percentage for each contest.
+*ORDER BY percentage DESC, contest_id ASC*: Sorts the results by percentage in descending order and by contest_id in ascending order if there is a tie in the percentage.
 
 17. []()
 
