@@ -384,18 +384,18 @@ ORDER BY
 ```
 
 **Steps:**
-Find the total number of unique users from the Users table.
-Count how many unique users registered for each contest from the Register table.
-Calculate the percentage of users who registered for each contest by dividing the number of users registered for the contest by the total number of unique users.
-Round the percentage to 2 decimal places.
-Sort the results by percentage in descending order. If there's a tie, sort by contest_id in ascending order.
+- Find the total number of unique users from the Users table.
+- Count how many unique users registered for each contest from the Register table.
+- Calculate the percentage of users who registered for each contest by dividing the number of users registered for the contest by the total number of unique users.
+- Round the percentage to 2 decimal places.
+- Sort the results by percentage in descending order. If there's a tie, sort by contest_id in ascending order.
 
 **Explanation:**
-*COUNT(DISTINCT user_id)*: This counts the unique users for each contest.
-*(SELECT COUNT(*) FROM Users)*: This gets the total number of users.
-*ROUND((COUNT(DISTINCT user_id) * 100.0) / (SELECT COUNT(*) FROM Users), 2)*: This calculates the percentage of users registered for the contest and rounds it to 2 decimal places.
-*GROUP BY contest_id*: Groups the results by each contest to calculate the percentage for each contest.
-*ORDER BY percentage DESC, contest_id ASC*: Sorts the results by percentage in descending order and by contest_id in ascending order if there is a tie in the percentage.
+- *COUNT(DISTINCT user_id)*: This counts the unique users for each contest.
+- *(SELECT COUNT(*) FROM Users)*: This gets the total number of users.
+- *ROUND((COUNT(DISTINCT user_id) * 100.0) / (SELECT COUNT(*) FROM Users), 2)*: This calculates the percentage of users registered for the contest and rounds it to 2 decimal places.
+- *GROUP BY contest_id*: Groups the results by each contest to calculate the percentage for each contest.
+- *ORDER BY percentage DESC, contest_id ASC*: Sorts the results by percentage in descending order and by contest_id in ascending order if there is a tie in the percentage.
 
 17. []()
 
