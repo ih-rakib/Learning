@@ -5,12 +5,14 @@
 ```sql
 SELECT product_id FROM Products WHERE low_fats = 'Y' AND recyclable = 'Y';
 ```
+------
 
 2. [Find Customer Referee](https://leetcode.com/problems/find-customer-referee/)
 
 ```sql
 SELECT name FROM Customer WHERE referee_id != 2 OR referee_id IS NULL;
 ```
+------
 
 3. [Big Countries](https://leetcode.com/problems/big-countries/)
 
@@ -18,6 +20,7 @@ SELECT name FROM Customer WHERE referee_id != 2 OR referee_id IS NULL;
 SELECT name, population, area FROM World 
 WHERE population >= 25000000 OR area >= 3000000;
 ```
+------
 
 4. [Article Views I](https://leetcode.com/problems/article-views-i/)
 
@@ -27,6 +30,7 @@ FROM Views
 WHERE author_id = viewer_id
 ORDER BY id ASC;
 ```
+------
 
 5. [Invalid Tweets](https://leetcode.com/problems/invalid-tweets/)
 
@@ -34,6 +38,7 @@ ORDER BY id ASC;
 SELECT tweet_id FROM Tweets
 WHERE LENGTH(content) > 15;
 ```
+------
 
 6. [Replace Employee ID With The Unique Identifier](https://leetcode.com/problems/replace-employee-id-with-the-unique-identifier/)
 
@@ -55,6 +60,7 @@ FROM
 LEFT JOIN 
     EmployeeUNI AS EU ON E.id = EU.id;
 ```
+------
 
 7. [Product Sales Analysis I](https://leetcode.com/problems/product-sales-analysis-i/)
 
@@ -64,6 +70,8 @@ FROM Product AS P
 JOIN SALES AS S
 ON P.product_id = S.product_id;
 ```
+------
+
 
 8. [Customer Who Visited but Did Not Make Any Transactions](https://leetcode.com/problems/customer-who-visited-but-did-not-make-any-transactions/)
 
@@ -75,6 +83,7 @@ ON V.visit_id = T.visit_id
 WHERE T.visit_id IS NULL
 GROUP BY V.customer_id;
 ```
+------
 
 9. [Rising Temperature](https://leetcode.com/problems/rising-temperature/)
 
@@ -93,6 +102,9 @@ FROM Weather AS W1, Weather AS W2
 WHERE W1.recordDate = W2.recordDate + INTERVAL 1 DAY
 AND W1.temperature > W2.temperature;
 ```
+
+------
+
 
 10. [Average Time of Process per Machine](https://leetcode.com/problems/average-time-of-process-per-machine/)
 
@@ -125,6 +137,7 @@ FROM (
 ) AS time_data
 GROUP BY machine_id;
 ```
+------
 
 11. [Employee Bonus](https://leetcode.com/problems/employee-bonus/)
 
@@ -135,6 +148,8 @@ LEFT JOIN Bonus B
 ON E.empId = B.empId
 WHERE B.bonus < 1000 OR B.empId IS NULL;
 ```
+
+------
 
 12. [Students and Examinations](https://leetcode.com/problems/students-and-examinations/)
 
@@ -291,6 +306,8 @@ WHERE id % 2 != 0 AND description != "boring"
 ORDER BY rating DESC;
 ```
 
+------
+
 14. [ Average Selling Price](https://leetcode.com/problems/average-selling-price/)
 
 ```sql
@@ -330,6 +347,7 @@ GROUP BY
 
 4. **`GROUP BY p.product_id`**: This groups the results by `product_id`, which allows us to perform aggregate functions (like `SUM`) for each product. Each product will have its own row in the final result, containing the total revenue and total units sold specific to that product.
 
+------
 
 15. [Project Employees I](https://leetcode.com/problems/project-employees-i/)
 
@@ -344,6 +362,7 @@ JOIN
 GROUP BY 
     p.project_id;
 ```
+------
 
 16. [Percentage of Users Attended a Contest](https://leetcode.com/problems/percentage-of-users-attended-a-contest/)
 
@@ -432,6 +451,7 @@ GROUP BY
 3. User 7: Made 3 requests and all were confirmed, so the confirmation rate is 1.00.
 4. User 2: Made 2 requests, with 1 confirmed and 1 timed out, so the confirmation rate is 0.50.
 
+------
 
 18. [Managers with at Least 5 Direct Reports](https://leetcode.com/problems/managers-with-at-least-5-direct-reports/)
 
@@ -471,6 +491,7 @@ ON e.id = managers.managerId;
 |------|
 | John |
 
+------
 
 19. []()
 
@@ -478,9 +499,12 @@ ON e.id = managers.managerId;
 
 ```
 
+------
+
+
 20. []()
 
 ```sql
 
 ```
-
+------
