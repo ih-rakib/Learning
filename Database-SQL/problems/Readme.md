@@ -426,10 +426,11 @@ GROUP BY
 
 - GROUP BY s.user_id: We group the results by user_id to calculate the confirmation rate for each user.
 
-> User 6: Did not request any confirmation messages, so the confirmation rate is 0.00.
-> User 3: Made 2 requests, but both timed out, so the confirmation rate is 0.00.
-> User 7: Made 3 requests and all were confirmed, so the confirmation rate is 1.00.
-> User 2: Made 2 requests, with 1 confirmed and 1 timed out, so the confirmation rate is 0.50.
+
+1. User 6: Did not request any confirmation messages, so the confirmation rate is 0.00.
+2. User 3: Made 2 requests, but both timed out, so the confirmation rate is 0.00.
+3. User 7: Made 3 requests and all were confirmed, so the confirmation rate is 1.00.
+4. User 2: Made 2 requests, with 1 confirmed and 1 timed out, so the confirmation rate is 0.50.
 
 
 18. [Managers with at Least 5 Direct Reports](https://leetcode.com/problems/managers-with-at-least-5-direct-reports/)
