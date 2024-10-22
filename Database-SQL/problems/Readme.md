@@ -397,14 +397,89 @@ ORDER BY
 - *GROUP BY contest_id*: Groups the results by each contest to calculate the percentage for each contest.
 - *ORDER BY percentage DESC, contest_id ASC*: Sorts the results by percentage in descending order and by contest_id in ascending order if there is a tie in the percentage.
 
-17. []()
+17. [Confirmation Rate](https://leetcode.com/problems/confirmation-rate/)
+
+```sql
+SELECT 
+    s.user_id,
+    IFNULL(ROUND(COUNT(CASE WHEN c.action = 'confirmed' THEN 1 END) / COUNT(c.action), 2), 0.00) AS confirmation_rate
+FROM 
+    Signups s
+LEFT JOIN 
+    Confirmations c
+ON 
+    s.user_id = c.user_id
+GROUP BY 
+    s.user_id;
+```
+
+**Explanation:**
+- FROM Signups s LEFT JOIN Confirmations c: We perform a LEFT JOIN between the Signups table and the Confirmations table to ensure that all users from Signups are included, even if they have no confirmation records.
+
+- COUNT(CASE WHEN c.action = 'confirmed' THEN 1 END): This counts how many times each user had a confirmation message that was 'confirmed'.
+
+- COUNT(c.action): This counts the total number of confirmation messages (either 'confirmed' or 'timeout') for each user.
+
+- ROUND(..., 2): This rounds the confirmation rate to two decimal places.
+
+- IFNULL(..., 0.00): If the user did not request any confirmation messages (i.e., COUNT(c.action) is NULL), we set the confirmation rate to 0.00.
+
+- GROUP BY s.user_id: We group the results by user_id to calculate the confirmation rate for each user.
+
+> User 6: Did not request any confirmation messages, so the confirmation rate is 0.00.
+> User 3: Made 2 requests, but both timed out, so the confirmation rate is 0.00.
+> User 7: Made 3 requests and all were confirmed, so the confirmation rate is 1.00.
+> User 2: Made 2 requests, with 1 confirmed and 1 timed out, so the confirmation rate is 0.50.
+
+
+18. [Managers with at Least 5 Direct Reports](https://leetcode.com/problems/managers-with-at-least-5-direct-reports/)
+
+```sql
+SELECT e.name FROM Employee E
+JOIN (
+    SELECT managerId, COUNT(*) AS report_count FROM Employee
+    WHERE managerId IS NOT NULL
+    GROUP BY managerId
+    HAVING report_count >= 5
+) AS managers
+ON e.id = managers.managerId;
+```
+
+
+```sql
+SELECT managerId, COUNT(*) AS report_count 
+FROM Employee
+WHERE managerId IS NOT NULL
+GROUP BY managerId
+HAVING report_count >= 5
+```
+
+| managerId | report_count |
+|-----------|--------------|
+| 101       | 5            |
+
+
+```sql
+SELECT e.name 
+FROM Employee E
+JOIN (subquery result) AS managers
+ON e.id = managers.managerId;
+```
+
+| name |
+|------|
+| John |
+
+
+19. []()
 
 ```sql
 
 ```
 
-18. []()
+20. []()
 
 ```sql
 
 ```
+
