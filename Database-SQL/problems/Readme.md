@@ -513,8 +513,8 @@ WHERE activity_date BETWEEN '2019-06-28' AND '2019-07-27'
 GROUP BY activity_date;
 ```
 
--> On 2019-07-20, two users (user 1 and user 2) were active.
--> On 2019-07-21, two users (user 2 and user 3) were active.
+- On 2019-07-20, two users (user 1 and user 2) were active.
+- On 2019-07-21, two users (user 2 and user 3) were active.
 ------
 
 21. []()
