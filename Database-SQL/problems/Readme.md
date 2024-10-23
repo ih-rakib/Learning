@@ -493,7 +493,31 @@ ON e.id = managers.managerId;
 
 ------
 
-19. []()
+19. [Number of Unique Subjects Taught by Each Teacher](https://leetcode.com/problems/number-of-unique-subjects-taught-by-each-teacher/)
+
+```sql
+SELECT teacher_id, COUNT(DISTINCT subject_id) AS cnt 
+FROM Teacher
+GROUP BY teacher_id;
+```
+
+------
+
+
+20. [User Activity for the Past 30 Days I](https://leetcode.com/problems/user-activity-for-the-past-30-days-i/)
+
+```sql
+SELECT activity_date AS day, COUNT(DISTINCT user_id) AS active_users
+FROM Activity
+WHERE activity_date BETWEEN '2019-06-28' AND '2019-07-27'
+GROUP BY activity_date;
+```
+
+-> On 2019-07-20, two users (user 1 and user 2) were active.
+-> On 2019-07-21, two users (user 2 and user 3) were active.
+------
+
+21. []()
 
 ```sql
 
@@ -502,7 +526,7 @@ ON e.id = managers.managerId;
 ------
 
 
-20. []()
+22. []()
 
 ```sql
 
