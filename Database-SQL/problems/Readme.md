@@ -517,7 +517,37 @@ GROUP BY activity_date;
 - On 2019-07-21, two users (user 2 and user 3) were active.
 ------
 
-21. []()
+21. [Queries Quality and Percentage](https://leetcode.com/problems/queries-quality-and-percentage/)
+
+```sql
+SELECT query_name,
+       ROUND(AVG(rating / position), 2) AS quality,
+       ROUND((SUM(rating < 3) * 100) / COUNT(*), 2) AS poor_query_percentage
+FROM Queries
+WHERE query_name IS NOT NULL
+GROUP BY query_name;
+```
+
+------
+
+
+22. [Monthly Transactions I](https://leetcode.com/problems/monthly-transactions-i/)
+
+```sql
+SELECT 
+    DATE_FORMAT(trans_date, '%Y-%m') AS month,    -- Extract year and month from trans_date
+    country,
+    COUNT(*) AS trans_count,                      -- Total number of transactions
+    SUM(state = 'approved') AS approved_count,     -- Count of approved transactions
+    SUM(amount) AS trans_total_amount,            -- Total amount of all transactions
+    SUM(amount * (state = 'approved')) AS approved_total_amount  -- Sum of approved transaction amounts
+FROM Transactions
+GROUP BY month, country;
+```
+
+------
+
+23. []()
 
 ```sql
 
@@ -526,9 +556,11 @@ GROUP BY activity_date;
 ------
 
 
-22. []()
+24. []()
 
 ```sql
 
 ```
+
+------
 ------
