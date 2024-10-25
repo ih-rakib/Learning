@@ -547,7 +547,46 @@ GROUP BY month, country;
 
 ------
 
-23. []()
+23. [Product Sales Analysis III](https://leetcode.com/problems/product-sales-analysis-iii/)
+
+```sql
+SELECT s.product_id, s.year AS first_year, s.quantity, s.price
+FROM Sales s
+INNER JOIN (
+    SELECT product_id, MIN(year) AS first_year
+    FROM Sales
+    GROUP BY product_id
+) AS first_sales
+ON s.product_id = first_sales.product_id AND s.year = first_sales.first_year;
+```
+
+```sql
+SELECT p.product_name, s.product_id, s.year AS first_year, s.quantity, s.price
+FROM Sales s
+INNER JOIN (
+    SELECT product_id, MIN(year) AS first_year
+    FROM Sales
+    GROUP BY product_id
+) AS first_sales
+ON s.product_id = first_sales.product_id AND s.year = first_sales.first_year
+JOIN Product p
+ON s.product_id = p.product_id;
+```
+
+------
+
+
+24. [Classes More Than 5 Students](https://leetcode.com/problems/classes-more-than-5-students/)
+
+```sql
+SELECT class FROM Courses
+GROUP BY class
+HAVING COUNT(student) >= 5;
+```
+
+------
+
+25. []()
 
 ```sql
 
@@ -556,11 +595,10 @@ GROUP BY month, country;
 ------
 
 
-24. []()
+26. []()
 
 ```sql
 
 ```
 
-------
 ------
