@@ -639,6 +639,12 @@ LEFT JOIN Activity a
     ON f.player_id = a.player_id; -- Join the Activity table to check for logins
 ```
 
+
+>CASE WHEN a.event_date = DATE_ADD(f.first_login_date, INTERVAL 1 DAY):
+- This condition checks if the event_date in the Activity table (aliased as a) is exactly one day after the player's first login date (obtained from the subquery, aliased as f).
+>THEN f.player_id: If the condition is true, the player’s ID is returned.
+>END: This completes the CASE statement.
+
 [2]
 
 ```sql
