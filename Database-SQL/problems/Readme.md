@@ -615,8 +615,60 @@ ON d.customer_id = f.customer_id AND d.order_date = f.first_order_date;
 
 26. [Game Play Analysis IV](https://leetcode.com/problems/game-play-analysis-iv/)
 
-```sql
+[1]
 
+```sql
+SELECT 
+    -- Calculate the fraction of players that logged in the day after their first login
+    ROUND(
+        -- Count distinct players who logged in the day after their first login
+        COUNT(DISTINCT CASE WHEN a.event_date = DATE_ADD(f.first_login_date, INTERVAL 1 DAY) 
+                            THEN f.player_id END) * 1.0 / 
+        -- Count total distinct players
+        COUNT(DISTINCT f.player_id), 
+        2 -- Round the result to 2 decimal places
+    ) AS fraction
+FROM 
+    -- Subquery to get each player's first login date
+    (SELECT 
+        player_id, 
+        MIN(event_date) AS first_login_date -- Get the earliest login date for each player
+     FROM Activity
+     GROUP BY player_id) f -- Group by player_id to aggregate
+LEFT JOIN Activity a 
+    ON f.player_id = a.player_id; -- Join the Activity table to check for logins
+```
+
+[2]
+
+```sql
+WITH FirstLogin AS (
+    -- Get each player's first login date
+    SELECT 
+        player_id, 
+        MIN(event_date) AS first_login_date
+    FROM Activity
+    GROUP BY player_id
+),
+
+NextDayLogin AS (
+    -- Check if there’s a login the day after the first login
+    SELECT 
+        f.player_id,
+        (a.event_date = DATE_ADD(f.first_login_date, INTERVAL 1 DAY)) AS logged_next_day
+    FROM FirstLogin f
+    JOIN Activity a 
+    ON f.player_id = a.player_id
+    WHERE a.event_date = DATE_ADD(f.first_login_date, INTERVAL 1 DAY)
+)
+
+SELECT 
+    ROUND(
+        1.0 * COUNT(DISTINCT player_id) / (SELECT COUNT(DISTINCT player_id) FROM Activity), 
+        2
+    ) AS fraction
+FROM NextDayLogin
+WHERE logged_next_day = 1;
 ```
 
 | player_id | device_id | event_date | games_played |
