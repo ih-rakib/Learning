@@ -586,7 +586,98 @@ HAVING COUNT(student) >= 5;
 
 ------
 
-25. []()
+25. [Immediate Food Delivery II](https://leetcode.com/problems/immediate-food-delivery-ii/)
+
+```sql
+WITH FirstOrders AS (
+    -- Create a CTE (Common Table Expression) to identify each customer's first order
+    SELECT 
+        customer_id,
+        MIN(order_date) AS first_order_date  -- Get the earliest order date per customer
+    FROM Delivery
+    GROUP BY customer_id
+)
+
+SELECT 
+    ROUND(
+        100.0 * SUM(d.order_date = d.customer_pref_delivery_date) 
+        / COUNT(*), 2  -- Calculate and round the percentage of immediate first orders to 2 decimal places
+    ) AS immediate_percentage
+FROM Delivery d
+JOIN FirstOrders f 
+ON d.customer_id = f.customer_id AND d.order_date = f.first_order_date;  
+-- Join Delivery table with FirstOrders to only look at each customer’s first order
+-- Count orders where order_date equals customer_pref_delivery_date (immediate orders)
+```
+
+------
+
+
+26. [Game Play Analysis IV](https://leetcode.com/problems/game-play-analysis-iv/)
+
+```sql
+
+```
+
+| player_id | device_id | event_date | games_played |
+|-----------|-----------|------------|--------------|
+| 1         | 2         | 2016-03-01 | 5            |
+| 1         | 2         | 2016-03-02 | 6            |
+| 2         | 3         | 2017-06-25 | 1            |
+| 3         | 1         | 2016-03-02 | 0            |
+| 3         | 4         | 2018-07-03 | 5            |
+
+
+```sql
+WITH FirstLogin AS (
+    SELECT 
+        player_id, 
+        MIN(event_date) AS first_login_date
+    FROM Activity
+    GROUP BY player_id
+)
+```
+
+| player_id | first_login_date |
+|-----------|------------------|
+| 1         | 2016-03-01       |
+| 2         | 2017-06-25       |
+| 3         | 2016-03-02       |
+
+```sql
+NextDayLogin AS (
+    SELECT 
+        f.player_id,
+        (a.event_date = DATE_ADD(f.first_login_date, INTERVAL 1 DAY)) AS logged_next_day
+    FROM FirstLogin f
+    JOIN Activity a 
+    ON f.player_id = a.player_id
+    WHERE a.event_date = DATE_ADD(f.first_login_date, INTERVAL 1 DAY)
+)
+```
+
+| player_id | logged_next_day |
+|-----------|-----------------|
+| 1         | 1               |
+
+
+```sql
+SELECT 
+    ROUND(
+        1.0 * COUNT(DISTINCT player_id) / (SELECT COUNT(DISTINCT player_id) FROM Activity), 
+        2
+    ) AS fraction
+FROM NextDayLogin
+WHERE logged_next_day = 1
+```
+
+| fraction |
+|----------|
+| 0.33     |
+
+------
+
+27. []()
 
 ```sql
 
@@ -595,7 +686,7 @@ HAVING COUNT(student) >= 5;
 ------
 
 
-26. []()
+28. []()
 
 ```sql
 
