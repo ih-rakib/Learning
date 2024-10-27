@@ -735,7 +735,31 @@ WHERE logged_next_day = 1
 
 ------
 
-27. []()
+27. [Find Followers Count](https://leetcode.com/problems/find-followers-count/)
+
+```sql
+SELECT user_id, COUNT(follower_id) AS followers_count
+FROM Followers
+GROUP BY user_id
+ORDER BY user_id ASC;
+```
+
+------
+
+
+28. [Biggest Single Number](https://leetcode.com/problems/biggest-single-number/)
+
+```sql
+SELECT MAX(num) AS num FROM (
+    SELECT num FROM MyNumbers
+    GROUP BY num
+    HAVING COUNT(num) = 1) 
+    AS single_numbers
+```
+
+------
+
+29. []()
 
 ```sql
 
@@ -744,7 +768,7 @@ WHERE logged_next_day = 1
 ------
 
 
-28. []()
+30. []()
 
 ```sql
 
