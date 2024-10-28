@@ -759,7 +759,39 @@ SELECT MAX(num) AS num FROM (
 
 ------
 
-29. []()
+29. [Customers Who Bought All Products](https://leetcode.com/problems/customers-who-bought-all-products/)
+
+```sql
+SELECT customer_id FROM Customer 
+GROUP BY customer_id
+HAVING COUNT(DISTINCT product_key) = (SELECT COUNT(*) FROM Product);
+
+/*
+
+HAVING COUNT(DISTINCT product_key) = (SELECT COUNT(*) FROM Product) 
+- checks if the count of distinct products purchased by each customer matches the total number of products in the Product table.
+If the counts match, it means the customer bought all products.
+
+*/
+```
+
+------
+
+
+30. [The Number of Employees Which Report to Each Employee](https://leetcode.com/problems/the-number-of-employees-which-report-to-each-employee/)
+
+```sql
+SELECT e.employee_id, e.name,
+       COUNT(r.employee_id) AS reports_count,
+       ROUND(AVG(r.age)) AS average_age
+FROM Employees e
+JOIN Employees r ON e.employee_id = r.reports_to
+GROUP BY e.employee_id, e.name
+HAVING COUNT(r.employee_id) > 0
+ORDER BY e.employee_id;
+```
+
+31. []()
 
 ```sql
 
@@ -768,7 +800,7 @@ SELECT MAX(num) AS num FROM (
 ------
 
 
-30. []()
+32. []()
 
 ```sql
 
