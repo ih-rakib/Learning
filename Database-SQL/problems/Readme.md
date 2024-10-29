@@ -791,7 +791,32 @@ HAVING COUNT(r.employee_id) > 0
 ORDER BY e.employee_id;
 ```
 
-31. []()
+31. [Primary Department for Each Employee](https://leetcode.com/problems/primary-department-for-each-employee/)
+
+```sql
+SELECT employee_id, department_id
+FROM Employee 
+WHERE primary_flag = 'Y' 
+OR employee_id NOT IN (
+    SELECT employee_id FROM Employee
+    WHERE primary_flag = 'Y'
+);
+```
+
+------
+
+
+32. [Triangle Judgement](https://leetcode.com/problems/triangle-judgement/)
+
+```sql
+SELECT x, y, z, 
+IF(x + y > z AND y + z > x AND x + z > y, 'Yes', 'No') AS triangle
+FROM Triangle;
+```
+
+------
+
+33. []()
 
 ```sql
 
@@ -800,7 +825,7 @@ ORDER BY e.employee_id;
 ------
 
 
-32. []()
+34. []()
 
 ```sql
 
