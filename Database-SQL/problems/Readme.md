@@ -816,7 +816,35 @@ FROM Triangle;
 
 ------
 
-33. []()
+33. [Consecutive Numbers](https://leetcode.com/problems/consecutive-numbers/)
+
+```sql
+SELECT DISTINCT l1.num AS ConsecutiveNums
+FROM Logs l1
+JOIN Logs l2 ON l1.id = l2.id - 1
+JOIN Logs l3 ON l2.id = l3.id - 1
+WHERE l1.num = l2.num AND l2.num = l3.num;
+```
+
+------
+
+
+34. [Product Price at a Given Date](https://leetcode.com/problems/product-price-at-a-given-date/)
+
+```sql
+SELECT p.product_id,
+       COALESCE((SELECT new_price 
+                 FROM Products 
+                 WHERE product_id = p.product_id 
+                   AND change_date <= '2019-08-16' 
+                 ORDER BY change_date DESC 
+                 LIMIT 1), 10) AS price
+FROM (SELECT DISTINCT product_id FROM Products) AS p;
+```
+
+------
+
+35. []()
 
 ```sql
 
@@ -825,7 +853,7 @@ FROM Triangle;
 ------
 
 
-34. []()
+36. []()
 
 ```sql
 
