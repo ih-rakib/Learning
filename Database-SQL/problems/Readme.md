@@ -844,7 +844,36 @@ FROM (SELECT DISTINCT product_id FROM Products) AS p;
 
 ------
 
-35. []()
+35. [Employees Whose Manager Left the Company](https://leetcode.com/problems/employees-whose-manager-left-the-company/)
+
+```sql
+SELECT e.employee_id 
+FROM Employees e
+LEFT JOIN Employees m ON e.manager_id = m.employee_id
+WHERE e.salary < 30000
+  AND e.manager_id IS NOT NULL
+  AND m.employee_id IS NULL
+ORDER BY e.employee_id;
+```
+
+------
+
+
+36. [Exchange Seats](https://leetcode.com/problems/exchange-seats/)
+
+```sql
+SELECT 
+    IF(MOD(id,2) = 1 AND id + 1 <= (SELECT MAX(id) FROM Seat), id + 1,
+    IF (MOD(id,2) = 0, id - 1, id)) AS id, student
+FROM Seat
+ORDER BY id;
+```
+
+------
+
+------
+
+37. []()
 
 ```sql
 
@@ -853,10 +882,9 @@ FROM (SELECT DISTINCT product_id FROM Products) AS p;
 ------
 
 
-36. []()
+38. []()
 
 ```sql
 
 ```
-
 ------
