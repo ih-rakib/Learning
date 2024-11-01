@@ -871,9 +871,73 @@ ORDER BY id;
 
 ------
 
+
+37. [Last Person to Fit in the Bus](https://leetcode.com/problems/last-person-to-fit-in-the-bus/)
+
+```sql
+WITH AccumulatedWeight AS (
+    SELECT person_name, weight, turn,
+    SUM(weight) OVER (ORDER BY turn) AS total_weight
+    FROM Queue
+)
+SELECT person_name FROM AccumulatedWeight
+WHERE total_weight <= 1000
+ORDER BY turn DESC
+LIMIT 1;
+```
+
 ------
 
-37. []()
+
+38. [Count Salary Categories](https://leetcode.com/problems/count-salary-categories/)
+
+```sql
+SELECT 'Low Salary' AS category,
+COUNT(IF(income < 20000, 1, NULL)) AS accounts_count
+FROM Accounts
+
+UNION ALL
+
+SELECT 'Average Salary' AS category,
+COUNT(IF(income BETWEEN 20000 AND 50000, 1, NULL)) AS accounts_count
+FROM Accounts
+
+UNION ALL
+
+SELECT 'High Salary' AS category,
+COUNT(IF(income > 50000, 1, NULL)) AS accounts_count
+FROM Accounts;
+```
+
+```sql
+SELECT 'Low Salary' AS category,
+SUM(IF(income < 20000, 1, 0)) AS accounts_count
+FROM Accounts
+
+UNION ALL
+
+SELECT 'Average Salary' AS category,
+SUM(IF(income BETWEEN 20000 AND 50000, 1, 0)) AS accounts_count
+FROM Accounts
+
+UNION ALL
+
+SELECT 'High Salary' AS category,
+SUM(IF(income > 50000, 1, 0)) AS accounts_count
+FROM Accounts;
+```
+
+```sql
+SELECT 'Low Salary' AS category, SUM(IF(income < 20000, 1, 0)) AS accounts_count FROM Accounts
+UNION ALL
+SELECT 'Average Salary', SUM(IF(income BETWEEN 20000 AND 50000, 1, 0)) FROM Accounts
+UNION ALL
+SELECT 'High Salary', SUM(IF(income > 50000, 1, 0)) FROM Accounts;
+```
+
+------
+
+39. []()
 
 ```sql
 
@@ -882,7 +946,7 @@ ORDER BY id;
 ------
 
 
-38. []()
+40. []()
 
 ```sql
 
