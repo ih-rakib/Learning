@@ -937,7 +937,77 @@ SELECT 'High Salary', SUM(IF(income > 50000, 1, 0)) FROM Accounts;
 
 ------
 
-39. []()
+39. [Movie Rating](https://leetcode.com/problems/movie-rating/)
+
+```sql
+-- Step 1: Find the user with the most ratings
+WITH UserRatingsCount AS (
+    SELECT u.name, COUNT(mr.movie_id) AS ratings_count
+    FROM Users u
+    JOIN MovieRating mr ON u.user_id = mr.user_id
+    GROUP BY u.name
+),
+TopUser AS (
+    SELECT name
+    FROM UserRatingsCount
+    WHERE ratings_count = (
+        SELECT MAX(ratings_count) FROM UserRatingsCount
+    )
+    ORDER BY name
+    LIMIT 1
+)
+
+-- Step 2: Find the movie with the highest average rating in February 2020
+, Feb2020MovieRatings AS (
+    SELECT m.title, AVG(mr.rating) AS avg_rating
+    FROM Movies m
+    JOIN MovieRating mr ON m.movie_id = mr.movie_id
+    WHERE mr.created_at BETWEEN '2020-02-01' AND '2020-02-29'
+    GROUP BY m.title
+),
+TopMovie AS (
+    SELECT title
+    FROM Feb2020MovieRatings
+    WHERE avg_rating = (
+        SELECT MAX(avg_rating) FROM Feb2020MovieRatings
+    )
+    ORDER BY title
+    LIMIT 1
+)
+
+-- Final Output
+SELECT name AS results FROM TopUser
+UNION ALL
+SELECT title AS results FROM TopMovie;
+
+--i.e: have to understand this further later on!!! ':(
+
+```
+
+------
+
+
+40. [Fix Names in a Table](https://leetcode.com/problems/fix-names-in-a-table/)
+
+```sql
+SELECT user_id,
+       CONCAT(UPPER(LEFT(name, 1)), LOWER(SUBSTRING(name, 2))) AS name
+FROM Users ORDER BY user_id;
+
+/*
+
+LEFT(name, 1): Extracts the first character of name.
+UPPER(LEFT(name, 1)): Converts the first character to uppercase.
+SUBSTRING(name, 2): Extracts the substring starting from the second character to the end of name.
+LOWER(SUBSTRING(name, 2)): Converts the rest of the characters to lowercase.
+CONCAT(...): Concatenates the uppercase first letter with the lowercase rest of the string.
+
+*/
+```
+
+------
+
+41. []()
 
 ```sql
 
@@ -946,7 +1016,7 @@ SELECT 'High Salary', SUM(IF(income > 50000, 1, 0)) FROM Accounts;
 ------
 
 
-40. []()
+42. []()
 
 ```sql
 
