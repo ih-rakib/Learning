@@ -1005,9 +1005,52 @@ CONCAT(...): Concatenates the uppercase first letter with the lowercase rest of 
 */
 ```
 
+```sql
+/*
+    if lets say first 3 char upper and rest lowercase
+
+    SELECT user_id,
+    CONCAT(UPPER(SUBSTRING(name, 1, 3)), LOWER(SUBSTRING(name, 4))) AS name
+    FROM Users
+    ORDER BY user_id;
+*/
+
+```
+
 ------
 
-41. []()
+41. [Find Users With Valid E-Mails](https://leetcode.com/problems/find-users-with-valid-e-mails/)
+
+```sql
+SELECT user_id, name, mail
+FROM Users
+WHERE mail REGEXP '^[A-Za-z][A-Za-z0-9._-]*@leetcode\\.com$';
+
+/*
+
+    - ^: Asserts the start of the string.
+    - [A-Za-z]: Ensures the first character is a letter (either uppercase or lowercase).
+    - [A-Za-z0-9._-]*: Allows any combination of letters, digits, underscores, periods, or dashes to follow.
+    - @leetcode\\.com: Ensures that the domain is exactly @leetcode.com (we use \\. to escape the dot).
+
+*/
+```
+
+------
+
+
+42. [List the Products Ordered in a Period](https://leetcode.com/problems/list-the-products-ordered-in-a-period/)
+
+```sql
+SELECT p.product_name, SUM(o.unit) AS unit
+FROM Products p
+JOIN Orders o ON p.product_id = o.product_id
+WHERE o.order_date BETWEEN '2020-02-01' AND '2020-02-29'  -- Filter orders in February 2020
+GROUP BY p.product_name
+HAVING SUM(o.unit) >= 100;  -- Only include products with at least 100 units ordered
+```
+
+43. []()
 
 ```sql
 
@@ -1016,7 +1059,7 @@ CONCAT(...): Concatenates the uppercase first letter with the lowercase rest of 
 ------
 
 
-42. []()
+44. []()
 
 ```sql
 
