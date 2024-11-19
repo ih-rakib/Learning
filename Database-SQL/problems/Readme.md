@@ -1050,7 +1050,60 @@ GROUP BY p.product_name
 HAVING SUM(o.unit) >= 100;  -- Only include products with at least 100 units ordered
 ```
 
-43. []()
+------------
+
+43. [Patients With a Condition](https://leetcode.com/problems/patients-with-a-condition/)
+
+```sql
+SELECT * FROM Patients
+WHERE conditions LIKE 'DIAB1%' OR conditions LIKE '% DIAB1%'; -- space 
+
+/*
+
+-- '%DIAB1%' if DIAB1 present as substring at any position
+-- 'DIAB1%' if DIAB1 present as substring as prefix
+-- '%DIAB1' if DIAB1 present as suffix
+
+*/
+```
+
+------
+
+
+44. [Delete Duplicate Emails](https://leetcode.com/problems/delete-duplicate-emails/)
+
+```sql
+DELETE p1 FROM Person p1
+JOIN Person p2 on p1.email = p2.email
+WHERE p1.id > p2.id; -- deleting row with higher id
+```
+
+------------
+
+45. [Group Sold Products By The Date](https://leetcode.com/problems/group-sold-products-by-the-date/)
+
+```sql
+SELECT sell_date, 
+       COUNT(DISTINCT product) AS num_sold,
+       GROUP_CONCAT(DISTINCT product ORDER BY product) AS products
+FROM Activities
+GROUP BY sell_date -- aggregate data based on column
+ORDER BY sell_date;
+```
+
+------
+
+
+46. []()
+
+```sql
+
+```
+
+------------
+
+
+47. []()
 
 ```sql
 
@@ -1059,9 +1112,30 @@ HAVING SUM(o.unit) >= 100;  -- Only include products with at least 100 units ord
 ------
 
 
-44. []()
+48. []()
 
 ```sql
 
 ```
+
+------------
+
+
+49. []()
+
+```sql
+
+```
+
 ------
+
+
+50. []()
+
+```sql
+
+```
+
+------------
+
+<sub> ©️Ikramul Hasan Rakib </sub>
